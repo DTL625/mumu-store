@@ -36,3 +36,7 @@ npm-debug.log
 yarn-error.log
 workspace.xml
 storage/*
+
+.phpstorm.meta.php
+_ide_helper*
+*.log
