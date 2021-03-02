@@ -31,8 +31,8 @@ class CommodityController extends AdminController
         $grid->column('title', __('mumu.title'));
         $grid->column('price', __('mumu.title'));
         $grid->column('after_price', __('mumu.after_price'));
-        $grid->column('created_at', __('admin.created_at'));
-        $grid->column('updated_at', __('admin.updated_at'));
+        $grid->column('created_at', __('admin.created_at'))->datetime('y-m-d h:i:s');
+        $grid->column('updated_at', __('admin.updated_at'))->datetime('y-m-d h:i:s');
 
         return $grid;
     }
@@ -75,10 +75,21 @@ class CommodityController extends AdminController
         $form->text('title', __('mumu.title'));
         $form->text('notice', __('mumu.notice'));
         $form->text('description', __('mumu.description'));
-        $form->number('price', __('mumu.drice'));
+        $form->number('price', __('mumu.price'));
         $form->number('after_price', __('mumu.after_price'));
         $form->textarea('format', __('mumu.format'));
         $form->textarea('content', __('mumu.content'));
+        $form->hasMany('images', '', function (Form\NestedForm $form){
+            $form->text('filename', __('mumu.filename'));
+            $states = [
+                'on'  => ['value' => 1, 'text' => '是', 'color' => 'success'],
+                'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
+            ];
+
+            $form->switch('is_cover', __('mumu.is_cover'))->states($states);
+
+            $form->file('path', __('mumu.file'));
+        });
 
         return $form;
     }

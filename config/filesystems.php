@@ -65,6 +65,10 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'admin' => [
+            'driver' => 'local',
+            'root' => storage_path('app/mumu'),
+        ],
     ],
 
     /*

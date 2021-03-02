@@ -10,4 +10,7 @@ return [
     'after_price' => '商品折扣價',
     'format'      => '商品規格',
     'content'     => '內容',
+    'is_cover'    => '是否為封面',
+    'file'        => '檔案',
+    'filename'    => '檔案名稱',
 ];
