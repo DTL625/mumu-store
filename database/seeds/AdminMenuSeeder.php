@@ -1,11 +1,8 @@
 <?php
 
-namespace Database\Seeders;
-
-use DB;
 use Illuminate\Database\Seeder;
 
-class AdminTablesSeeder extends Seeder
+class AdminMenuSeeder extends Seeder
 {
     /**
      * Run the database seeds.
