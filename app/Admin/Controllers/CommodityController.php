@@ -3,12 +3,14 @@
 namespace App\Admin\Controllers;
 
 use App\Model\Commodity;
+use App\Repositories\CategoryRepository;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Database\Eloquent\Collection;
 
-class CommodityController extends AdminController
+class CommodityController extends BaseController
 {
     /**
      * Title for current resource.
@@ -25,14 +27,25 @@ class CommodityController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Commodity());
-
         $grid->column('id', __('mumu.id'));
-        $grid->column('slug', __('mumu.slug'));
-        $grid->column('title', __('mumu.title'));
-        $grid->column('price', __('mumu.title'));
-        $grid->column('after_price', __('mumu.after_price'));
-        $grid->column('created_at', __('admin.created_at'))->datetime('y-m-d h:i:s');
-        $grid->column('updated_at', __('admin.updated_at'))->datetime('y-m-d h:i:s');
+        $grid->column('title', __('mumu.title'))->display(function () {
+            return "<a href='$this->slug'>$this->title</a>";
+        });
+        $grid->column('price', __('mumu.price'))->display(function () {
+            if ($this->after_price) {
+                return "<s>$this->price</s>  $this->after_price";
+            } else {
+                return $this->price;
+            }
+        });
+        $grid->column('category', __('mumu.category'))->display(function ($item) {
+
+            return join(' ', array_map(function ($item) {
+                return "<span class='label label-success'>{$item['title']}</span>";
+            }, $item));
+        });
+        $grid->column('created_at', __('admin.created_at'))->dataTimeString();
+        $grid->column('updated_at', __('admin.updated_at'))->dataTimeString();
 
         return $grid;
     }
@@ -69,10 +82,12 @@ class CommodityController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Commodity());
+        $form     = new Form(new Commodity());
+        $category = new CategoryRepository();
 
-        $form->text('slug', __('mumu.slug'));
-        $form->text('title', __('mumu.title'));
+        $form->text('slug', __('mumu.slug'))->required();
+        $form->text('title', __('mumu.title'))->required();
+        $form->multipleSelect('category', __('mumu.category'))->options($category->getFormOption());
         $form->text('notice', __('mumu.notice'));
         $form->text('description', __('mumu.description'));
         $form->number('price', __('mumu.price'));
@@ -85,10 +100,10 @@ class CommodityController extends AdminController
                 'on'  => ['value' => 1, 'text' => '是', 'color' => 'success'],
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
             ];
-
+//
             $form->switch('is_cover', __('mumu.is_cover'))->states($states);
-
-            $form->file('path', __('mumu.file'));
+//
+//            $form->file('path', __('mumu.file'));
         });
 
         return $form;

@@ -20,6 +20,6 @@ class Commodity extends Model
 
     public function category()
     {
-        
+        return $this->belongsToMany(Category::class, 'commodities_category', 'c_id', 'cate_id');
     }
 }

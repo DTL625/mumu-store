@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Routing\Router;
+//use App\Admin\Controllers\CategoryController;
+//use App\Admin\Controllers\CommodityController;
 
 Admin::routes();
 
@@ -13,5 +15,5 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('commodities', CommodityController::class);
-
+    $router->resource('categories', CategoryController::class);
 });

@@ -18,4 +18,10 @@
  *
  */
 
+use Encore\Admin\Grid\Column;
+
 Encore\Admin\Form::forget(['map', 'editor']);
+
+Column::extend('dataTimeString', function ($value) {
+    return \Carbon\Carbon::parse($value)->toDateTimeString();
+});

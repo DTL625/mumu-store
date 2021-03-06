@@ -13,4 +13,5 @@ return [
     'is_cover'    => '是否為封面',
     'file'        => '檔案',
     'filename'    => '檔案名稱',
+    'category'   => '分類'
 ];
