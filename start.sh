@@ -6,3 +6,5 @@ cp ./.env.example /.env
 php artisan key:generate
 php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
 php artisan migrate
+
+php artisan storageinks

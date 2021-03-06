@@ -94,8 +94,9 @@ class CommodityController extends BaseController
         $form->number('after_price', __('mumu.after_price'));
         $form->textarea('format', __('mumu.format'));
         $form->textarea('content', __('mumu.content'));
+//        $form->multipleImage('images', '')('')->sortable();
         $form->hasMany('images', '', function (Form\NestedForm $form){
-            $form->text('filename', __('mumu.filename'));
+//            $form->text('filename', __('mumu.filename'));
             $states = [
                 'on'  => ['value' => 1, 'text' => '是', 'color' => 'success'],
                 'off' => ['value' => 0, 'text' => '否', 'color' => 'danger'],
@@ -103,7 +104,7 @@ class CommodityController extends BaseController
 //
             $form->switch('is_cover', __('mumu.is_cover'))->states($states);
 //
-//            $form->file('path', __('mumu.file'));
+            $form->file('path', __('mumu.file'));
         });
 
         return $form;
